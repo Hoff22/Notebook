@@ -1,4 +1,5 @@
 // Combinacao (A,B) == (B,A)
+// C = n! / p!(n-p)!
 
 int choose(int n, int p)
 {
