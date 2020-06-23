@@ -1,0 +1,17 @@
+// Combinacao (A,B) == (B,A)
+
+int choose(int n, int p)
+{
+   if (n < p)
+   {
+      return 0;
+   }
+   else if (p == 0)
+   {
+      return 1;
+   }
+   else
+   {
+      return choose(n - 1, p) + choose(n - 1, p - 1);
+   }
+}
