@@ -1,1 +1,25 @@
 pasta com algoritmos de grafos
+
+Número de vértices: V (ou N)
+Número de arestas: E (ou M)
+
+Grafo direcionado: Grafo no qual as arestas tem direção
+Grafo bidirecionado: Grafo no qual as arestas não tem direção
+
+Grau de um vértice: Número de arestas incidentes (ou vértices adjacentes)
+
+Grau de entrada de um vértice: Quantas arestas CHEGAM nesse vértice
+Grau de saída de um vértice: Quantas arestas SAEM desse vértice
+
+Componente Conexa: Conjunto de vértices que são alcançáveis dando 0 ou mais passos pelas arestas
+
+Componente Fortemente Conexa: Conjunto máximo de vértices no qual todos alcançam todos (grafo direcionado)
+
+Grafo transposto: Grafo direcionado com as arestas invertidas
+
+Grafo Esparso: M ~ O(N)
+Grafo Denso: M ~ O(N^2)
+
+O(N) <= M <= O(N^2)
+
+sum(deg(u)) = 2 * m
