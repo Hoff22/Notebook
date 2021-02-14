@@ -50,3 +50,20 @@ long long quick_power(int a, int b){
 long long choose(int n, int k){
    return factsMOD[n] * quick_power(factsMOD[n], MOD - 2) % MOD * quick_power(factsMOD[n - k], MOD - 2) % MOD;
 }
+
+///////////////////////////////////////////////////////////////////////////////////
+// N = max number n to compute n choose k;
+// n choose k = choose[n][k]; 
+long long choose[N][N];
+
+void pascal(){
+   for(int i = 0; i <= N; i++){
+      choose[i][0] = 1;
+   }
+   for(int i = 1; i <= N; i++){
+      for(int j = 1; j <= i; j++){
+         choose[i][j] = (choose[i-1][j-1] + choose[i-1][j]) /*% MOD*/;
+      }
+   }
+}
+
