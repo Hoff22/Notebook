@@ -21,8 +21,8 @@ int find_set(int a){
 
 // union(a, b) merges two sets into one
 void union_set(int a, int b){
-	int a = find_set(a);
-	int b = find_set(b);
+	a = find_set(a);
+	b = find_set(b);
 	
 	if(a != b){
 		if(height[b] > height[a]) swap(a, b); // bigger's always a;
