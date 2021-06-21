@@ -2,7 +2,6 @@
 vector<long long> factor(long long n){
 	vector<long long> factors;
 	if(n == 1){
-		factors.push_back(1);
 		return factors;
 	}
 	long long i = 2;

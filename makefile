@@ -1,2 +1,6 @@
 all:
-	g++ -std=c++14 $(f).cpp -o $(f) -O2 -Wall -Wextra -Wshadow -Wno-unused-result -Wno-sign-compare -fsanitize=undefined -fno-sanitize-recover
+	git add .
+	git commit -m "$f"
+	git push
+	Hoff22
+	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
