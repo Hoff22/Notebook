@@ -8,7 +8,7 @@ vector<int> g[N];
 bool seen[N];
 int dist[N];
 
-void bfs(int root, int target){
+void bfs(int root){
     queue<int> fila;
 // inicia o primeiro da fila (distancia 0) //
 // Se eu quiser por mais de um 0 aqui eu posso e os nós
