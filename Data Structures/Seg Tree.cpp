@@ -7,10 +7,10 @@ using namespace std;
 #define RIGHT(x) (2 * x + 1)
 
 int seg[4 * N + 1];
-int a[N + 1];
+int a[N + 1]; // (input) an array of data to operate querys and updates over
 
 int merge(int nl, int nr) {
-	return nl + nr;
+	return nl + nr; // (input) this operation must be reversable and conform to problem
 }
 
 void build(int cur, int l, int r) {
@@ -62,6 +62,7 @@ void update(int cur, int l, int r, int i, int x) {
 	seg[cur] = merge(seg[LEFT(cur)], seg[RIGHT(cur)]);
 }
 
+// usage example:
 int main() {
 	int n, m, l, r, op, x, i;
 

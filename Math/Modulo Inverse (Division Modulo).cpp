@@ -17,6 +17,6 @@ long long pow_(long long a, long long b){
 // Given Euler's Theorem that states:
 // b^-1 % MOD == b^MOD-2
 // returns (a / b) % MOD
-long long divideM(long long a, b){
+long long divideM(long long a, long long b){
 	return ((a % MOD) * pow_(b, MOD-2)) % MOD;
 }
