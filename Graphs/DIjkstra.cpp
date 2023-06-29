@@ -1,17 +1,18 @@
 constexpr int N = 100000;
 
 struct State {
-	int u, d;
+	int u;
+	long long d;
 
 	bool operator < (const State &b) const {
 		return d > b.d;
 	}
 };
 
-vector<pair<int, int>> g[N + 1]; // (Input)
+vector<pair<int, long long>> g[N + 1]; // (Input)
 priority_queue<State> pq;
 bool in_spt[N + 1];
-int dist[N + 1];
+long long dist[N + 1];
 
 /* O(E + E * Log(V)). */
 void dijkstra(int u) {
@@ -37,7 +38,7 @@ void dijkstra(int u) {
 			// For every vertex v adjacent to u.
 			for (int i = 0; i < g[u].size(); i++) {
 				int v = g[u][i].first;
-				int w = g[u][i].second;
+				long long w = g[u][i].second;
 
 				// If a better path was found to add the vertex v to the Shortest Path Tree.
 				if (!in_spt[v] and dist[u] + w < dist[v]) {

@@ -19,36 +19,59 @@ int choose(int n, int p)
 
 //////////////////////////////////////////////////////////
 
-#define MOD (1e9+7)
-#define N 1000000
+long long f[N + 1];
 
-long long factsMOD[N+1];
+/* O(Log(min(a, b))) - Extended Euclidean Algorithm.
+   Returns a solution to a * x + b * y = gcd(a, b).
+   Returns |x| <= |a / gcd(a, b)|, |y| <= |b / gcd(a, b)| and gcd(a, b). */
+tuple<long long, long long, long long> extended_gcd(long long a, long long b) {
+    long long x, y, gcd;
 
-void factInit(){
-	facts[0] = 1;
-	for(int i = 1; i <= N; i++){
-		facts[i] = facts[i-1] * i * 1ll % MOD;
-	}
+    if (a == 0) {
+        return {b, 0, 1};
+    }
+
+    tie(gcd, x, y) = extended_gcd(b % a, a);
+
+    return {gcd, y - (b / a) * x, x};
 }
 
-long long quick_power(int a, int b){
-   long long ans = 1;
+/* O(Log(M)) - Returns the modular multiplicative inverse of a mod m, if it exists.
+Returns x that satisfies a * x = 1 (mod m) if a and m are coprime. Returns 0 otherwise. */
+long long modular_inverse(long long a, long long m) {
+    long long gcd, x, y;
 
-   while(b){
-      if(b & 1){
-         ans = 1ll * ans * a % MOD;
-      }
-      
-      a = 1ll * a * a % MOD;
-      
-      b >>= 1;
-   }
+    tie(gcd, x, y) = extended_gcd((a % m + m) % m, m);
 
-   return ans;
+    if (gcd != 1) {
+        return 0;
+    }
+
+    return (x % m + m) % m;
 }
 
-long long choose(int n, int k){
-   return factsMOD[n] * quick_power(factsMOD[n], MOD - 2) % MOD * quick_power(factsMOD[n - k], MOD - 2) % MOD;
+/* O(Log(M)) - This only works if k! * (n - k)! is coprime with m. */
+long long nck(long long n, long long k, long long m) {
+    long long num, den;
+
+    // Trivial case.
+    if (k < 0 or k > n) {
+        return 0;
+    }
+
+    num = f[n];
+    den = (f[k] * f[n - k]) % m;
+
+    return (num * modular_inverse(den, m)) % m;
+}
+
+/* O(N). */
+void nck_init(long long m) {
+    f[0] = 1;
+
+    for (long long i = 1; i <= N; i++) {
+        f[i] = (f[i - 1] * i) % m;
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

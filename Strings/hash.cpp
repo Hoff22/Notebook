@@ -1,5 +1,3 @@
-#define MOD 10e9+7;
-
 /*
 	input: O(N)
 	hash_str ht(string str)	// create hash object of string str
@@ -7,6 +5,8 @@
 	usage: O(1)
 	ht.sub_hash(l, r) 		// hash value for substr in range [l,r] of str;
 */
+
+const int MOD = 1e9+7;
 
 mt19937 rng((int) chrono::steady_clock::now().time_since_epoch().count());
 const int r = uniform_int_distribution<int>(0, MOD-1)(rng);

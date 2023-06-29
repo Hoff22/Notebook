@@ -7,14 +7,34 @@ using namespace std;
 #define RIGHT(x) (2 * x + 1)
 
 int seg[4 * N + 1];
+int lazy[4 * N + 1];
 int a[N + 1]; // (input) an array of data to operate querys and updates over
 
+// O(1)
 int merge(int nl, int nr) {
 	return nl + nr; // (input) this operation must be reversable and conform to problem
 }
 
+// O(1)
+void lazy_update(int cur, int l, int r){
+	seg[cur] = seg[cur] + lazy[cur] * (r-l+1);	// this operation is for a range sum query 
+	//seg[cur] = seg[cur] + lazy[cur]; 			// this is for a max value range query 
+
+	// if not leaf node
+	if(l < r){
+		// lazily propagating update to children
+		lazy[LEFT(cur)] += lazy[cur];
+		lazy[RIGHT(cur)] += lazy[cur];
+	}
+
+	lazy[cur] = 0;
+}
+
+// O(N)
 void build(int cur, int l, int r) {
 	int m = (l + r) / 2;
+
+	lazy[cur] = 0;
 
 	if (l == r) {
 		seg[cur] = a[l];
@@ -27,8 +47,13 @@ void build(int cur, int l, int r) {
 	seg[cur] = merge(seg[LEFT(cur)], seg[RIGHT(cur)]);
 }
 
+// O(log(N))
 int query(int cur, int l, int r, int i, int j) {
 	int nl, nr, m = (l + r) / 2;
+
+	if(lazy[cur]){
+		lazy_update(cur, l, r);
+	}
 
 	if (r < i or l > j) { // this cur is out of my desired range of search [i,j]
 		return 0;
@@ -41,54 +66,31 @@ int query(int cur, int l, int r, int i, int j) {
 	nl = query(LEFT(cur), l, m, i, j);
 	nr = query(RIGHT(cur), m + 1, r, i, j);
 
+	seg[cur] = merge(seg[LEFT(cur)], seg[RIGHT(cur)]);
+
 	return merge(nl, nr); // return the merge of all curs that are inside my desired range of search [i,j]
 }
 
-void update(int cur, int l, int r, int i, int x) {
+// O(log(N))
+void update(int cur, int l, int r, int i, int j, int x) {
 	int m = (l + r) / 2;
 
-	if (r < i or l > i) {
+	if(lazy[cur]){
+		lazy_update(cur, l, r);
+	}
+
+	if (r < i or l > j) { // this cur is out of my desired range of search [i,j]
 		return;
 	}
 
-	if (l == r) {
-		seg[cur] = x;
+	if (l >= i and r <= j) { // this cur is completely inside my desired range of search [i,j]
+		lazy[cur] = x;
+		lazy_update(cur, l, r);
 		return;
 	}
 
-	update(LEFT(cur), l, m, i, x);
-	update(RIGHT(cur), m + 1, r, i, x);
+	update(LEFT(cur), l, m, i, j, x);
+	update(RIGHT(cur), m + 1, r, i, j, x);
 
 	seg[cur] = merge(seg[LEFT(cur)], seg[RIGHT(cur)]);
-}
-
-// usage example:
-int main() {
-	int n, m, l, r, op, x, i;
-
-	scanf("%d%d", &n, &m);
-
-	// O(N)
-	for (i = 1; i <= n; i++) {
-		scanf("%d", a + i);
-	}
-
-	// O(N)
-	build(1, 1, n);
-
-	// O(M * Log(N))
-	while (m--) {
-		scanf("%d", &op);
-
-		if (op == 1) { // UPDATE
-			scanf("%d%d", &i, &x);
-			update(1, 1, n, i, x);
-		}
-		else if (op == 2) { // QUERY
-			scanf("%d%d", &l, &r);
-			print("%d", query(1, 1, n, l, r));
-		}
-	}
-
-	return 0;
 }

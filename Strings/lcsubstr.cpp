@@ -1,10 +1,3 @@
-#include<bits/stdc++.h>
-
-using namespace std;
-
-#define MOD 10e9+7;
-
-
 /*
 	input: O(N)
 	hash_str ht(string str)	// create hash object of string str
@@ -12,6 +5,8 @@ using namespace std;
 	usage: O(1)
 	ht.sub_hash(l, r) 		// hash value for substr in range [l,r] of str;
 */
+
+
 
 mt19937 rng((int) chrono::steady_clock::now().time_since_epoch().count());
 const int r = uniform_int_distribution<int>(0, MOD-1)(rng);
