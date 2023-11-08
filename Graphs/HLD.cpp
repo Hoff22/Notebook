@@ -3,6 +3,13 @@
 
 constexpr int N = 100000;
 
+/*
+
+	implementation below expects
+	the nodes to be indexed from 1. 
+
+*/
+
 vector<int> g[N+1]; // (input) adjacency vector for input tree (undirected)
 int val[N+1]; 		// (input) tree vert value array
 int n; 				// (input) number of nodes in tree

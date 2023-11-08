@@ -2,8 +2,6 @@
 
 // graph:
 vector<int> g[N+1];
-// Parents from DFS tree:
-int parent[N+1];
 // Seen:
 bool seen[N+1];
 // Discovery Time:

@@ -9,24 +9,24 @@ bool seen[N];
 int dist[N];
 
 void bfs(int root){
-    queue<int> fila;
-// inicia o primeiro da fila (distancia 0) //
+    queue<int> q;
+// inicia o primeiro da q (distancia 0) //
 // Se eu quiser por mais de um 0 aqui eu posso e os nós
 // tem valores relativos com o mais proximo //
     seen[root] = true;
     dist[root] = 0;
-    fila.push(root);
+    q.push(root);
 // loop dos proximos na sequencia de profundidade//
-    while(!fila.empty()){
+    while(!q.empty()){
 
-        int atual = fila.front();
-        fila.pop();
+        int atual = q.front();
+        q.pop();
             
         for(int next : g[atual]){
             if(!seen[next]){
                 seen[next] = true;
                 dist[next] = dist[atual] + 1;
-                fila.push(next);     
+                q.push(next);     
             }
         }
     }
