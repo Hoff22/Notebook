@@ -2,8 +2,8 @@
 // the set
 #define N 10000 // number of elements
 
-int parent[N];
-int height[N];
+int parent[N+1];
+int height[N+1];
 
 // make_set(a) creates a new set/tree with only the node a
 void make_set(int a){

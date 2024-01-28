@@ -1,3 +1,5 @@
+/* the inverse of 2 modulo any odd number m is (m-1)/2 + 1 */
+    
 /* O(Log(min(a, b))) - Extended Euclidean Algorithm.
    Returns a solution to a * x + b * y = gcd(a, b).
    Returns |x| <= |a / gcd(a, b)|, |y| <= |b / gcd(a, b)| and gcd(a, b). */
