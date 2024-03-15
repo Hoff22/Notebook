@@ -10,6 +10,7 @@ int tin[N+1];
 int low[N+1];
 // Bridges:
 vector<pair<int, int>> bridges;
+int ap[N+1];
 
 int timer = 0;
 
@@ -20,14 +21,24 @@ void tarjan(int u, int p){
 
 	tin[u] = low[u] = timer++;
 
+	int child = 0;
+
 	for(int v : g[u]){
 		if(v == p) continue;
 		if(!seen[v]){
 			//parent[v] = u;
+			child++;
 			tarjan(v, u);
 			low[u] = min(low[u], low[v]);
-			// u->v is a bridge and u is not a leaf:
-			if(low[v] > tin[u] and g[u].size() > 1){
+
+			// u is root with more than 1 child or there's no path from subtree of node v to u using back-edges.
+			// so removing u is going to disconect v's subtree
+			if((!p and child >= 2) or (p and low[v] >= tin[u])){
+				ap[u] = 1;
+			}
+
+			// u->v is a bridge:
+			if(low[v] > tin[u]){
 				bridges.push_back({u,v});
 			}
 		}// v is a back-edge:
