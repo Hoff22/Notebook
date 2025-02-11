@@ -1,4 +1,4 @@
-#define N 200000
+constexpr int N 300000;
 #define LEFT(x) (2 * x)
 #define RIGHT(x) (2 * x + 1)
 
